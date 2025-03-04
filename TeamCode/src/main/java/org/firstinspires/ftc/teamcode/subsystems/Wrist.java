@@ -7,10 +7,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 @Config
 public class Wrist {
 	private static Servo wristServo;
-	private static final double Sample = 0.5;
-	private static final double Intake = 0.25;
+	private static final double Sample = 0.55;
+	private static final double Intake = 0.29;
 	private static final double SpecWall = 0;
-	private static final double Spec = 0.7;
+	private static final double Spec = 0.65;
 
 	public Wrist(OpMode opMode) {
 		wristServo = opMode.hardwareMap.get(Servo.class, "wrist");

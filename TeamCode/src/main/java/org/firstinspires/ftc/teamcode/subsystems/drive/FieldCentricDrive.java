@@ -17,7 +17,7 @@ public class FieldCentricDrive {
 	private double speed = 1.0; // Default speed
 	
 	public FieldCentricDrive(OpMode opMode) {
-		driver = opMode.gamepad2;
+		driver = opMode.gamepad1;
 		HardwareMap hardwareMap = opMode.hardwareMap;
 		
 		imu = hardwareMap.get(IMU.class, "imu");
@@ -26,13 +26,19 @@ public class FieldCentricDrive {
 		rightFront = hardwareMap.get(DcMotor.class, "FR");
 		rightBack = hardwareMap.get(DcMotor.class, "BR");
 		
-		leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 		leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-		setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+		leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+		rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
+		rightBack.setDirection(DcMotorSimple.Direction.FORWARD);
+		
+		rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+		leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+		rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+		leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 		
 		IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-			RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
-			RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD));
+			RevHubOrientationOnRobot.LogoFacingDirection.UP,
+			RevHubOrientationOnRobot.UsbFacingDirection.LEFT));
 		imu.initialize(parameters);
 	}
 	

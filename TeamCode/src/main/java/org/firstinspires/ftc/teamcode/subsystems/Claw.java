@@ -8,13 +8,13 @@ import com.qualcomm.robotcore.hardware.Servo;
 @Config
 public class Claw {
 	private static final double OPEN_POSITION = 0.05;
-	private static final double CLOSED_POSITION = 0.18;
+	private static final double CLOSED_POSITION = 0.19;
 	private static Servo clawServo;
 	
 	public Claw(OpMode opMode) {
 		clawServo = opMode.hardwareMap.get(Servo.class, "claw");
 		clawServo.setDirection(Servo.Direction.FORWARD);
-		clawServo.setPosition(CLOSED_POSITION); // Start with the claw closed
+		clawServo.setPosition(OPEN_POSITION); // Start with the claw closed
 	}
 	public void Closed() {
 		clawServo.setPosition(CLOSED_POSITION);

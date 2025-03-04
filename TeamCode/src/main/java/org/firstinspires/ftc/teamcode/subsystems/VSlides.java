@@ -10,9 +10,11 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class VSlides {
 	
 		public static double POWER = 0.65;
-		public static int HighBasket = 3620;
-		public static int SpecimenWall = 400;
-		public static int HighChamber = 1600;
+		public static int HighBasket = 3100;
+		public static int SpecimenWall = 500;
+		public static int SpecWallHigh = 800;
+		public static int HighChamber = 1100;
+		public static int ScoreSpec = 200;
 		public static int RESET = 0;
 		
 		public static int MANUAL_MOVE_SPEED = 10;
@@ -52,7 +54,19 @@ public class VSlides {
 			slideLeft.setTargetPosition(SpecimenWall);
 			slideRight.setTargetPosition(SpecimenWall);
 		}
-		
+	
+	public void SpecWallHigh() {
+		slideLeft.setPower(1);
+		slideRight.setPower(1);
+		slideLeft.setTargetPosition(SpecWallHigh);
+		slideRight.setTargetPosition(SpecWallHigh);
+	}
+	public void ScoreSpec() {
+		slideLeft.setPower(1);
+		slideRight.setPower(1);
+		slideLeft.setTargetPosition(ScoreSpec);
+		slideRight.setTargetPosition(ScoreSpec);
+	}
 		public void HighBasket() {
 			slideLeft.setPower(1);
 			slideRight.setPower(1);
@@ -81,5 +95,11 @@ public class VSlides {
 			slideLeft.setPower(POWER);
 			slideRight.setPower(POWER);
 		}
+	public void updateTelemetry() {
+		telemetry.addData("VSlide Pos", slideLeft.getCurrentPosition());
+		telemetry.addData("Vslide Target" , slideLeft.getTargetPosition());
+		telemetry.update();
 	}
+	}
+	
 	

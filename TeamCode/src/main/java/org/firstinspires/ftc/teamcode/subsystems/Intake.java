@@ -15,15 +15,15 @@ import com.qualcomm.robotcore.hardware.Servo;
 @SuppressLint("NotConstructor")
 @Config
 public class Intake {
-	private static final double Intake = 1;
-	private static final double Outtake = -1;
+	private static final double Intake = .5;
+	private static final double Outtake = -.5;
 	private static DcMotor IntakeMotor;
 	
 	public Intake(OpMode opMode) {
 		hardwareMap = opMode.hardwareMap;
 		IntakeMotor = hardwareMap.get(DcMotor.class, "intake");
 		IntakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-		IntakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+		IntakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 	}
 	public void Intake() {
 		IntakeMotor.setPower(Intake);

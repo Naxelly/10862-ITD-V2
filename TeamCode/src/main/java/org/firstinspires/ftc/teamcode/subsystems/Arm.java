@@ -8,8 +8,9 @@ public class Arm {
 	private static Servo leftServo;
 	private static Servo rightServo;
 	
-	private static final double Sample = .7;
-	private static final double Intake = 0.16;
+	private static final double Sample = .6;
+	private static final double  SpecScore = 0.6;
+	private static final double Intake = 0.17;
 	private static final double Hold = 0.2;
 	private static final double Specimen = 0;
 	
@@ -28,6 +29,9 @@ public class Arm {
 	// Methods for direct control if needed elsewhere
 	public void Hold() {
 		armServo(Hold, Hold);
+	}
+	public void SpecScore() {
+		armServo(SpecScore, SpecScore);
 	}
 	public void Intake() {
 		armServo(Intake, Intake);

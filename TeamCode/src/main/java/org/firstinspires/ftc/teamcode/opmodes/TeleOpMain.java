@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.opmodes;
 
 import com.acmerobotics.roadrunner.SequentialAction;
-import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.acmerobotics.dashboard.FtcDashboard;
@@ -9,6 +8,8 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.InstantAction;
 import com.acmerobotics.roadrunner.SleepAction;
+import com.qualcomm.robotcore.hardware.Gamepad;
+
 import org.firstinspires.ftc.teamcode.subsystems.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Dropdown;
@@ -19,10 +20,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 import org.firstinspires.ftc.teamcode.subsystems.drive.FieldCentricDrive;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import fi.iki.elonen.NanoHTTPD;
 
 @TeleOp(name = "TeleOpMain")
 public class TeleOpMain extends OpMode {
@@ -55,100 +53,132 @@ public class TeleOpMain extends OpMode {
 	
 	@Override
 	public void loop() {
-		
-		//DRIVER 1
-		
-		//Intake
-		if (gamepad1.right_trigger >= 0.1) {
+		fieldCentricDrive.fieldCentric();
+		//HSlide.updateTelemetry();
+		VSlide.updateTelemetry();
+		// DRIVER 1
+	
+		// Intake or Outtake logic with else block handling default actions
+		if (gamepad1.right_bumper) {
 			runningActions.add(new SequentialAction(
 				new InstantAction(intake::Intake),
 				new InstantAction(dropdown::Down),
-				new SleepAction(.2),
+				new SleepAction(1.5),
 				new InstantAction(HSlide::Intake)
-			));
-		} else if (gamepad1.right_trigger < 0.5) {
-			runningActions.add(new SequentialAction(
-				new InstantAction(dropdown::Up),
-				new InstantAction(intake::Stop),
-				new InstantAction(HSlide::Start)
-			));
-		}
-		
-		//Outtake
-		if (gamepad1.left_trigger >= 0.1) {
+			));}
+		 if (gamepad1.left_bumper) {
 			runningActions.add(new SequentialAction(
 				new InstantAction(intake::Outtake),
 				new InstantAction(dropdown::Down),
-				new SleepAction(.2),
+				new SleepAction(1.5),
 				new InstantAction(HSlide::Outtake)
-			));
-		} else if (gamepad1.left_trigger < 0.5) {
+			));}
+//		else {
+//			dropdown.Up();
+//			intake.Stop();
+//			HSlide.Start();
+//		}
+		if (gamepad1.right_trigger>=0.1) {
+			runningActions.add(new SequentialAction(
+				new InstantAction(claw::Open)
+			));}
+		
+		if (gamepad1.left_trigger>=0.1) {
+			runningActions.add(new SequentialAction(
+				new InstantAction(claw::Closed)
+			));}
+		
+		if (gamepad1.dpad_left) {
 			runningActions.add(new SequentialAction(
 				new InstantAction(dropdown::Up),
 				new InstantAction(intake::Stop),
+				new SleepAction(0.2),
 				new InstantAction(HSlide::Start)
-			));
-		}
+			));}
 		
 		
-		//DRIVER 2
-			//HighBasket
+		// IntakeSample
+//		if (gamepad1.a) {
+//			runningActions.add(new SequentialAction(
+//				new InstantAction(VSlide::Reset),
+//				new InstantAction(wrist::setIntakePosition),
+//				new InstantAction(arm::Intake)
+//			));
+//		}
+		
+		// Open
+//		if (gamepad1.left_bumper) {
+//			runningActions.add(new SequentialAction(
+//				new InstantAction(claw::Open)
+//			));
+//		}
+//
+//		// Close
+//		if (gamepad1.right_bumper) {
+//			runningActions.add(new SequentialAction(
+//				new InstantAction(claw::Closed)
+//			));
+		//}
+		
+		// DRIVER 2
+		
+		// HighBasket
 		if (gamepad2.y) {
 			runningActions.add(new SequentialAction(
+				new InstantAction(claw::Open),
+				new SleepAction(.2),
+				new InstantAction(wrist::setIntakePosition),
+				new InstantAction(arm::Intake),
+				new SleepAction(.4),
+				new InstantAction(claw::Closed),
+				new SleepAction(1),
 				new InstantAction(arm::Sample),
 				new InstantAction(wrist::setSamplePosition),
-				new SleepAction(.2),
 				new InstantAction(VSlide::HighBasket)
 			));
 		}
-		//Re-start
+		
+		// Re-start
 		if (gamepad2.dpad_down) {
 			runningActions.add(new SequentialAction(
 				new InstantAction(arm::Hold),
 				new InstantAction(wrist::setIntakePosition),
-				new SleepAction(.2),
 				new InstantAction(VSlide::Reset)
 			));
 		}
-		//IntakeSample
-		if (gamepad1.a) {
-			runningActions.add(new SequentialAction(
-				new InstantAction(VSlide::Reset),
-				new InstantAction(wrist::setIntakePosition),
-				new InstantAction(arm::Intake)
-			));
-		}
-		//HighSpecimen
+		
+		// HighSpecimen
 		if (gamepad2.dpad_up) {
 			runningActions.add(new SequentialAction(
-				new InstantAction(arm::Spec),
+				new InstantAction(VSlide::HighChamber),
+				new SleepAction(0.5),
+				new InstantAction(arm::SpecScore),
 				new InstantAction(wrist::setSpecPosition),
-				new SleepAction(.2),
-				new InstantAction(VSlide::HighChamber)
+				new SleepAction(0.8)
 			));
 		}
-		//SpecimenWall
+		if (gamepad2.dpad_right){
+			runningActions.add(new SequentialAction(
+				new InstantAction(VSlide::ScoreSpec),
+				new SleepAction(0.8),
+				new InstantAction(claw::Open),
+				new SleepAction(1)
+			));
+		}
+		
+		// SpecimenWall
 		if (gamepad2.left_bumper) {
 			runningActions.add(new SequentialAction(
+				new InstantAction(VSlide::SpecWallHigh),
+				new SleepAction(0.5),
 				new InstantAction(claw::Open),
 				new InstantAction(arm::Spec),
 				new InstantAction(wrist::setSpecWallPosition),
-				new SleepAction(.2),
+				new SleepAction(0.5),
 				new InstantAction(VSlide::SpecWall)
 			));
 		}
-		//Open
-		if (gamepad1.left_bumper) {
-			runningActions.add(new SequentialAction(
-				new InstantAction(claw::Open)));
-		}
-		//Close
-		if (gamepad1.right_bumper) {
-			runningActions.add(new SequentialAction(
-				new InstantAction(claw::Closed)));
-		}
-	
-
+		
 		// Run the queued sequential actions
 		List<Action> newActions = new ArrayList<>();
 		for (Action action : runningActions) {
@@ -161,4 +191,5 @@ public class TeleOpMain extends OpMode {
 			dash.sendTelemetryPacket(packet);
 		}
 		runningActions = newActions;
-	}}
+	}
+}
