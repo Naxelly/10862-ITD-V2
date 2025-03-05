@@ -42,7 +42,10 @@ public class Arm {
 	public void Sample() {
 		armServo(Sample, Sample);
 	}
-	
+
+
+
+
 	private static void armServo(double setPositionRight, double setPositionLeft) {
 		rightServo.setPosition(setPositionRight);
 		leftServo.setPosition(setPositionLeft);
