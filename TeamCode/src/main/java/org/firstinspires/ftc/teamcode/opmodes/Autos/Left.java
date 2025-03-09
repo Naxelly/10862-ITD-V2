@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.subsystems.drive.MecanumDrive;
 public class Left extends LinearOpMode {
 	@Override
 	public void runOpMode() throws InterruptedException{
-		Pose2d Begin = new Pose2d(-23,-62,Math.toRadians(90));
+		Pose2d Begin = new Pose2d(-32,-62,Math.toRadians(90));
 		Pose2d AngleBasket = new Pose2d(-40,-45,Math.toRadians(90));
 		Pose2d Score = new Pose2d(-56,-58,Math.toRadians(90));
 		
@@ -46,7 +46,7 @@ public class Left extends LinearOpMode {
 			if (opModeIsActive()) {
 				Actions.runBlocking(
 					drive.actionBuilder(Begin)
-						.strafeTo(new Vector2d(-40,-45))
+						.strafeTo(new Vector2d(-45,-40))
 						.strafeToLinearHeading(new Vector2d(-75,-58), Math.toRadians(45))
 						.build());
 						vSlides.HighBasket();
@@ -59,7 +59,7 @@ public class Left extends LinearOpMode {
 						sleep(1000);
 				Actions.runBlocking(
 					drive.actionBuilder(Begin)
-						.strafeTo(new Vector2d(-50,-50))
+						.strafeTo(new Vector2d(-45,-50))
 						.build());
 						wrist.setIntakePosition();
 						sleep(200);
