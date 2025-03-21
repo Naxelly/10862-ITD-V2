@@ -22,7 +22,7 @@ public class Intake {
 	public Intake(OpMode opMode) {
 		hardwareMap = opMode.hardwareMap;
 		IntakeMotor = hardwareMap.get(DcMotor.class, "intake");
-		IntakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+		IntakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 		IntakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 	}
 	public void Intake() {

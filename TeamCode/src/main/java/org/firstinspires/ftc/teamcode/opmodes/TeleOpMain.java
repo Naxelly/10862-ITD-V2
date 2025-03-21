@@ -63,14 +63,14 @@ public class TeleOpMain extends OpMode {
 			runningActions.add(new SequentialAction(
 				new InstantAction(intake::Intake),
 				new InstantAction(dropdown::Down),
-				new SleepAction(1.5),
+				new SleepAction(0.5),
 				new InstantAction(HSlide::Intake)
 			));}
 		 if (gamepad1.left_bumper) {
 			runningActions.add(new SequentialAction(
 				new InstantAction(intake::Outtake),
 				new InstantAction(dropdown::Down),
-				new SleepAction(1.5),
+				new SleepAction(0.5),
 				new InstantAction(HSlide::Outtake)
 			));}
 //		else {
@@ -92,7 +92,7 @@ public class TeleOpMain extends OpMode {
 			runningActions.add(new SequentialAction(
 				new InstantAction(dropdown::Up),
 				new InstantAction(intake::Stop),
-				new SleepAction(0.2),
+				new SleepAction(0.5),
 				new InstantAction(HSlide::Start)
 			));}
 		
@@ -131,7 +131,9 @@ public class TeleOpMain extends OpMode {
 				new InstantAction(arm::Intake),
 				new SleepAction(.4),
 				new InstantAction(claw::Closed),
-				new SleepAction(1),
+					new SleepAction(1),
+					new InstantAction(VSlide::HighBasket),
+				new SleepAction(0.5),
 				new InstantAction(arm::Sample),
 				new InstantAction(wrist::setSamplePosition),
 				new InstantAction(VSlide::HighBasket)

@@ -9,8 +9,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class VSlides {
 	
-		public static double POWER = 0.65;
-		public static int HighBasket = 3100;
+		public static double POWER = 0.75;
+		public static int HighBasket = 3000;
 		public static int SpecimenWall = 500;
 		public static int SpecWallHigh = 800;
 		public static int HighChamber = 1100;
@@ -32,11 +32,11 @@ public class VSlides {
 			
 			slideLeft = hardwareMap.get(DcMotor.class, "vLSlide");
 			slideLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-			slideLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+			slideLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 			
 			slideRight = hardwareMap.get(DcMotor.class, "vRSlide");
 			slideRight.setDirection(DcMotorSimple.Direction.FORWARD);
-			slideRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+			slideRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 			
 			slideLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 			slideRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

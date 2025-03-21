@@ -61,6 +61,10 @@ public class FieldCentricDrive {
 		if (driver.start) {
 			imu.resetYaw();
 		}
+		if (driver.b) {
+			setSpeed(0.5);
+		}
+		else setSpeed(1);
 		
 		double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 		double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);

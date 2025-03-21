@@ -19,13 +19,14 @@ public class MeepMeepTesting {
 				.strafeTo(new Vector2d(-45,-50))
 				.turn(Math.toRadians(-45))
 				.lineTo(new Vector2d(-60,-60))
+					//.splineToLinearHeading()
 				
 				
 				.build());
 		
 		
-		meepMeep.setBackground(MeepMeep.Background.FIELD_INTOTHEDEEP_JUICE_DARK)
-			.setDarkMode(true)
+		meepMeep.setBackground(MeepMeep.Background.FIELD_INTOTHEDEEP_JUICE_LIGHT)
+			.setDarkMode(false)
 			.setBackgroundAlpha(0.95f)
 			.addEntity(myBot)
 			.start();

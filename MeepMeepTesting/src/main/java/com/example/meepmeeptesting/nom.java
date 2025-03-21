@@ -20,8 +20,13 @@ public class nom {
                         .turn(Math.toRadians(-45))
                         .lineTo(new Vector2d(-75,-58))
                         .strafeTo(new Vector2d(-45,-50))
-                        .splineToLinearHeading(new Pose2d(-30,-10),Math.toRadians(180))
+                        .turn(Math.toRadians(45))
+                        .setTangent(90)
+                        .lineTo(new Vector2d(-48,-40))
+                        .turn(Math.toRadians(-45))
+                        .lineTo(new Vector2d(-75,-58))
                         .setTangent(270)
+                        .splineToLinearHeading(new Pose2d(-30,-10),Math.toRadians(0))
 
 
 
